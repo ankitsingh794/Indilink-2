@@ -1,57 +1,301 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import styled from 'styled-components';
-import logo1 from '../assets/logo1.png'; // Import the logo image
-import './App.css';
+import { COLORS } from '../config/constants';
+import { theme } from '../styles/theme';
+import { FiUsers, FiTarget, FiHeart, FiAward } from 'react-icons/fi';
+import Button from './ui/Button';
 
 const About = () => {
   return (
     <AboutContainer>
-      <main className="main-content">
-        <h1>About Us</h1>
-        <p>
-          Welcome to <strong>Indilink</strong>, a unique platform dedicated to connecting the global Indian diaspora with the rich and diverse craftsmanship of local artisans in India. Our mission is to bridge the gap between the Indian community abroad and the traditional artisans of India, ensuring that quality products and authentic cultural experiences are accessible to everyone, no matter where they are in the world.
-        </p>
-        <h2>Our Mission</h2>
-        <p>
-          At Indilink, we understand the challenges faced by the Indian diaspora when it comes to accessing traditional products and connecting with their cultural roots. Many are often left searching for reliable sources of high-quality Puja Samagri, traditional attires, and handcrafted items, while local artisans struggle with limited resources and high transportation costs. Our platform aims to solve these issues by providing a seamless connection between buyers and sellers, ensuring quality assurance and reasonable transit costs.
-        </p>
-        <h2>What We Offer</h2>
-        <ul>
-          <li><strong>A Diverse Range of Products:</strong> From Puja Samagri to Handicrafts, Traditional Jewelry, and Sweets, our platform offers a wide variety of products that cater to your cultural and personal needs. Discover unique items like Terracotta Arts, Indian Spices, Ayurvedic Products, and more.</li>
-          <li><strong>Global Reach with Local Touch:</strong> We cover around 219 countries, offering a bridge between the Indian diaspora and local artisans across India. Our platform integrates global diaspora data to personalize product recommendations and enhance your shopping experience.</li>
-          <li><strong>Quality Assurance:</strong> We prioritize quality by verifying products and sellers before they reach you. Our commitment to quality ensures that you receive authentic and high-quality items every time.</li>
-          <li><strong>Seasonal and Cultural Relevance:</strong> Whether it’s a wedding ceremony, festival needs, or seasonal preferences, Indilink is designed to cater to the specific cultural and traditional requirements of our users.</li>
-          <li><strong>Support for Local Artisans:</strong> By connecting global buyers with local artisans, we support small businesses and preserve traditional crafts, promoting fair trade and sustainable practices.</li>
-        </ul>
-        <h2>Our Values</h2>
-        <ul>
-          <li><strong>Authenticity:</strong> We strive to provide genuine products that reflect the rich cultural heritage of India.</li>
-          <li><strong>Quality:</strong> Our rigorous quality checks ensure that every item meets high standards before it reaches you.</li>
-          <li><strong>Connection:</strong> We believe in fostering a deep connection between the Indian diaspora and their roots, enhancing the global cultural exchange.</li>
-          <li><strong>Sustainability:</strong> We support eco-friendly practices and sustainable products to protect our environment and promote ethical consumption.</li>
-        </ul>
-        <h2>Join Us</h2>
-        <p>
-          Become a part of the Indilink community and experience the vibrant culture of India from anywhere in the world. Whether you're looking for traditional attire, exquisite handicrafts, or unique gifts, Indilink is your gateway to a world of authentic Indian products and traditions.
-        </p>
-        <p>
-          Explore our categories, discover new favorites, and stay connected with your cultural heritage. Welcome to Indilink – where tradition meets innovation.
-        </p>
-      </main>
+      {/* Hero Section */}
+      <HeroSection>
+        <HeroContent>
+          <h1>About Indilink</h1>
+          <p>Bridging cultures, supporting artisans, and celebrating authentic craftsmanship globally</p>
+        </HeroContent>
+      </HeroSection>
+
+      {/* Mission Section */}
+      <MissionSection>
+        <SectionTitle>Our Mission</SectionTitle>
+        <MissionGrid>
+          <MissionCard>
+            <MissionIcon><FiTarget size={40} /></MissionIcon>
+            <h3>Empower Artisans</h3>
+            <p>Provide a global platform for skilled craftspeople to reach worldwide customers and grow their businesses sustainably.</p>
+          </MissionCard>
+          <MissionCard>
+            <MissionIcon><FiUsers size={40} /></MissionIcon>
+            <h3>Connect Cultures</h3>
+            <p>Bridge the gap between artisans and global consumers who appreciate authentic, handcrafted products with cultural significance.</p>
+          </MissionCard>
+          <MissionCard>
+            <MissionIcon><FiHeart size={40} /></MissionIcon>
+            <h3>Preserve Traditions</h3>
+            <p>Help preserve traditional crafts and cultural heritage by making these unique products accessible to a worldwide audience.</p>
+          </MissionCard>
+          <MissionCard>
+            <MissionIcon><FiAward size={40} /></MissionIcon>
+            <h3>Ensure Quality</h3>
+            <p>Maintain strict quality standards and verify all sellers to ensure customers receive authentic, high-quality products.</p>
+          </MissionCard>
+        </MissionGrid>
+      </MissionSection>
+
+      {/* Story Section */}
+      <StorySection>
+        <StoryContent>
+          <h2>Our Story</h2>
+          <p>
+            Indilink was founded with a simple vision: to connect the world with authentic Indian handicrafts and artisan products. 
+            We started as a small initiative to support local artisans and have grown into a vibrant global marketplace.
+          </p>
+          <p>
+            Today, Indilink connects thousands of skilled craftspeople with customers across the globe, making traditional arts 
+            and cultural products accessible while supporting sustainable livelihoods in artisan communities.
+          </p>
+        </StoryContent>
+        <StatsGrid>
+          <StatCard>
+            <StatNumber>5000+</StatNumber>
+            <StatLabel>Active Sellers</StatLabel>
+          </StatCard>
+          <StatCard>
+            <StatNumber>50000+</StatNumber>
+            <StatLabel>Products</StatLabel>
+          </StatCard>
+          <StatCard>
+            <StatNumber>100K+</StatNumber>
+            <StatLabel>Happy Customers</StatLabel>
+          </StatCard>
+          <StatCard>
+            <StatNumber>50+</StatNumber>
+            <StatLabel>Countries</StatLabel>
+          </StatCard>
+        </StatsGrid>
+      </StorySection>
+
+      {/* CTA Section */}
+      <CTASection>
+        <CTAContent>
+          <h2>Join Our Community</h2>
+          <p>Whether you're an artisan looking to share your creations or a customer seeking authentic products, there's a place for you at Indilink.</p>
+          <ButtonGroup>
+            <Button as={Link} to="/register">
+              Start Selling
+            </Button>
+            <Button as={Link} to="/products" variant="outlined">
+              Shop Now
+            </Button>
+          </ButtonGroup>
+        </CTAContent>
+      </CTASection>
     </AboutContainer>
   );
-}
-
-export default About;
+};
 
 const AboutContainer = styled.div`
-  padding: 2rem;
-  position: relative;
-  background-image: url(${logo1});
-  background-repeat: no-repeat;
-  background-size: contain; /* Make the logo fit within the container without stretching */
-  background-position: center; /* Center the logo */
-  background-color: rgba(255, 255, 255, 0.2); /* 80% transparency */
-  min-height: 100vh; /* Ensure the container takes at least the full viewport height */
-  background-attachment: fixed; /* Keep the background in place when scrolling */
+  min-height: 100vh;
+  background: ${COLORS.BG_PRIMARY};
 `;
+
+const HeroSection = styled.section`
+  background: ${COLORS.PRIMARY_GRADIENT};
+  color: ${COLORS.WHITE};
+  padding: ${theme.spacing['4xl']} ${theme.spacing.lg};
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    right: -10%;
+    width: 500px;
+    height: 500px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 50%;
+  }
+
+  &::after {
+    content: '';
+    position: absolute;
+    bottom: -30%;
+    left: -5%;
+    width: 300px;
+    height: 300px;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 50%;
+  }
+`;
+
+const HeroContent = styled.div`
+  max-width: 800px;
+  margin: 0 auto;
+  position: relative;
+  z-index: 1;
+
+  h1 {
+    font-size: ${theme.fontSizes['4xl']};
+    font-weight: ${theme.fontWeights.bold};
+    margin-bottom: ${theme.spacing.lg};
+    line-height: 1.2;
+  }
+
+  p {
+    font-size: ${theme.fontSizes.xl};
+    opacity: 0.95;
+    line-height: 1.6;
+    margin: 0;
+  }
+`;
+
+const SectionTitle = styled.h2`
+  font-size: ${theme.fontSizes['3xl']};
+  font-weight: ${theme.fontWeights.bold};
+  text-align: center;
+  color: ${COLORS.TEXT_PRIMARY};
+  margin-bottom: ${theme.spacing['3xl']};
+  position: relative;
+  padding-bottom: ${theme.spacing.lg};
+
+  &::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100px;
+    height: 3px;
+    background: ${COLORS.PRIMARY_GRADIENT};
+    border-radius: ${theme.borderRadius.full};
+  }
+`;
+
+const MissionSection = styled.section`
+  padding: ${theme.spacing['4xl']} ${theme.spacing.lg};
+  background: ${COLORS.BG_PRIMARY};
+`;
+
+const MissionGrid = styled.div`
+  max-width: 1200px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: ${theme.spacing['2xl']};
+`;
+
+const MissionCard = styled.div`
+  background: ${COLORS.WHITE};
+  padding: ${theme.spacing['2xl']};
+  border-radius: ${theme.borderRadius.lg};
+  text-align: center;
+  box-shadow: ${theme.shadows.md};
+  transition: all ${theme.transitions.base};
+
+  &:hover {
+    transform: translateY(-10px);
+    box-shadow: ${theme.shadows.lg};
+  }
+`;
+
+const MissionIcon = styled.div`
+  color: ${COLORS.PRIMARY};
+  margin-bottom: ${theme.spacing.lg};
+  display: flex;
+  justify-content: center;
+`;
+
+const StorySection = styled.section`
+  padding: ${theme.spacing['4xl']} ${theme.spacing.lg};
+  background: ${COLORS.BG_SECONDARY};
+`;
+
+const StoryContent = styled.div`
+  max-width: 800px;
+  margin: 0 auto ${theme.spacing['3xl']} auto;
+
+  h2 {
+    font-size: ${theme.fontSizes['3xl']};
+    font-weight: ${theme.fontWeights.bold};
+    color: ${COLORS.TEXT_PRIMARY};
+    margin-bottom: ${theme.spacing.lg};
+  }
+
+  p {
+    color: ${COLORS.TEXT_SECONDARY};
+    line-height: 1.8;
+    font-size: ${theme.fontSizes.lg};
+    margin-bottom: ${theme.spacing.lg};
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+`;
+
+const StatsGrid = styled.div`
+  max-width: 1200px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: ${theme.spacing['2xl']};
+`;
+
+const StatCard = styled.div`
+  background: ${COLORS.WHITE};
+  padding: ${theme.spacing['2xl']};
+  border-radius: ${theme.borderRadius.lg};
+  text-align: center;
+  box-shadow: ${theme.shadows.md};
+`;
+
+const StatNumber = styled.p`
+  font-size: ${theme.fontSizes['3xl']};
+  font-weight: ${theme.fontWeights.bold};
+  color: ${COLORS.PRIMARY};
+  margin: 0 0 ${theme.spacing.md} 0;
+`;
+
+const StatLabel = styled.p`
+  color: ${COLORS.TEXT_SECONDARY};
+  font-size: ${theme.fontSizes.base};
+  margin: 0;
+`;
+
+const CTASection = styled.section`
+  background: ${COLORS.SECONDARY_GRADIENT};
+  color: ${COLORS.WHITE};
+  padding: ${theme.spacing['4xl']} ${theme.spacing.lg};
+  text-align: center;
+`;
+
+const CTAContent = styled.div`
+  max-width: 600px;
+  margin: 0 auto;
+
+  h2 {
+    font-size: ${theme.fontSizes['3xl']};
+    font-weight: ${theme.fontWeights.bold};
+    margin-bottom: ${theme.spacing.lg};
+  }
+
+  p {
+    font-size: ${theme.fontSizes.lg};
+    margin-bottom: ${theme.spacing['2xl']};
+    opacity: 0.95;
+    line-height: 1.6;
+  }
+`;
+
+const ButtonGroup = styled.div`
+  display: flex;
+  gap: ${theme.spacing.lg};
+  justify-content: center;
+  flex-wrap: wrap;
+`;
+
+export default About;

@@ -1,60 +1,95 @@
-import React from 'react';
+import React, { Suspense } from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
-import { AuthProvider } from './context/AuthContext'; // Import AuthProvider
-import Home from './components/Home';
-import About from './components/About';
-import Support from './components/Support';
-import UserProfile from './components/UserProfile';
-import Checkout from './components/Checkout';
-import Registration from './pages/RegisterPage'; 
-import SellerDashboard from './pages/SellerDashboard'; 
-import CartPage from './pages/CartPage';
-import AdminDashboard from './pages/AdminDashboard'; 
-import ProductsPage from './pages/ProductsPage'; // Import the ProductsPage component
-import NavBar from './components/navbar'; 
+import styled from 'styled-components';
+import { AuthProvider } from './context/AuthContext';
 import { CartProvider } from './context/CartContext';
+import { GlobalStyles } from './styles/globalStyles';
 
-import './App.css';
-import logo from './assets/logo.png'; 
+// Layout Components
+import Header from './components/layout/Header';
+import Footer from './components/layout/Footer';
+
+// Pages
+import Home from './pages/Home';
+import About from './pages/About';
+import Support from './pages/Support';
+import UserProfile from './pages/UserProfile';
+import Checkout from './pages/CheckoutPage';
+import RegisterPage from './pages/RegisterPage';
+import SellerDashboard from './pages/SellerDashboard';
+import AdminDashboard from './pages/AdminDashboard';
+import CartPage from './pages/CartPage';
+import ProductsPage from './pages/ProductsPage';
+import FAQPage from './pages/FAQPage';
+import ShippingReturnsPage from './pages/ShippingReturnsPage';
+import SellerCenter from './pages/SellerCenter';
+import OrderConfirmation from './pages/OrderConfirmation';
+
+// Seller Pages
+import AddProduct from './pages/seller/AddProduct';
+import ManageProducts from './pages/seller/ManageProducts';
+import Orders from './pages/seller/Orders';
+import BranchManagement from './pages/seller/BranchManagement';
+import PayoutsAnalytics from './pages/seller/PayoutsAnalytics';
+
+// UI Components
+import { Loading } from './components/ui';
+
+function AppContent() {
+  return (
+    <AppContainer>
+      <Header />
+      <MainContent>
+        <Suspense fallback={<Loading fullScreen />}>
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/about" element={<About />} />
+            <Route path="/support" element={<Support />} />
+            <Route path="/profile" element={<UserProfile />} />
+            <Route path="/checkout" element={<Checkout />} />
+            <Route path="/order-confirmation" element={<OrderConfirmation />} />
+            <Route path="/register" element={<RegisterPage />} />
+            <Route path="/seller-dashboard" element={<SellerDashboard />} />
+            <Route path="/seller-center" element={<SellerCenter />} />
+            <Route path="/seller/add-product" element={<AddProduct />} />
+            <Route path="/seller/manage-products" element={<ManageProducts />} />
+            <Route path="/seller/orders" element={<Orders />} />
+            <Route path="/seller/branch-management" element={<BranchManagement />} />
+            <Route path="/seller/payouts-analytics" element={<PayoutsAnalytics />} />
+            <Route path="/admin-dashboard" element={<AdminDashboard />} />
+            <Route path="/products" element={<ProductsPage />} />
+            <Route path="/cart" element={<CartPage />} />
+            <Route path="/faq" element={<FAQPage />} />
+            <Route path="/shipping-returns" element={<ShippingReturnsPage />} />
+          </Routes>
+        </Suspense>
+      </MainContent>
+      <Footer />
+    </AppContainer>
+  );
+}
 
 function App() {
   return (
     <Router>
+      <GlobalStyles />
       <AuthProvider>
         <CartProvider>
-          <div className="App">
-            <header className="header">
-            <div className="header-logo">
-              <img src={logo} alt="Indilink Logo" className="logo-image" />
-            </div>
-             <h1 className="header-title">Indilink</h1>
-            <p className="slogan">Bridging Traditions, Crafting Connections</p>
-            <NavBar />
-           </header>
-           <main>
-             <Routes>
-               <Route path="/" element={<Home />} />
-               <Route path="/about" element={<About />} />
-               <Route path="/support" element={<Support />} />
-               <Route path="/profile" element={<UserProfile />} />
-               <Route path="/checkout" element={<Checkout />} />
-               <Route path="/register" element={<Registration />} />
-                <Route path="/seller-dashboard" element={<SellerDashboard />} />
-               <Route path="/admin-dashboard" element={<AdminDashboard />} />
-                <Route path="/products" element={<ProductsPage />} /> {/* Add Products Page route */}
-                <Route path="/cart" element={<CartPage />} />
-        
-      
-              </Routes>
-            </main>
-            <footer className="footer">
-              <p>&copy; 2024 Indilink. All rights reserved.</p>
-            </footer>
-          </div>
+          <AppContent />
         </CartProvider>
       </AuthProvider>
     </Router>
   );
 }
+
+const AppContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+`;
+
+const MainContent = styled.main`
+  flex: 1;
+`;
 
 export default App;

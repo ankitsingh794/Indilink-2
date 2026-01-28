@@ -1,5 +1,6 @@
-import React, { createContext, useState, useContext, useEffect } from 'react';
+import React, { createContext, useState, useContext, useEffect, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { STORAGE_KEYS, ROUTES } from '../config/constants';
 
 // Create the context
 const AuthContext = createContext();
@@ -7,34 +8,70 @@ const AuthContext = createContext();
 // Create a provider component
 export function AuthProvider({ children }) {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [user, setUser] = useState(null);
+  const [userRole, setUserRole] = useState(null);
+  const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
 
+  // Initialize auth state from localStorage
   useEffect(() => {
-    // Check if the user is authenticated on initial load
-    const token = localStorage.getItem('authToken');
-    setIsAuthenticated(!!token);
+    const token = localStorage.getItem(STORAGE_KEYS.AUTH_TOKEN);
+    const userData = localStorage.getItem(STORAGE_KEYS.USER_DATA);
+    
+    if (token && userData) {
+      try {
+        setIsAuthenticated(true);
+        const parsedUser = JSON.parse(userData);
+        setUser(parsedUser);
+        setUserRole(parsedUser.userType || null);
+      } catch (error) {
+        console.error('Error parsing user data:', error);
+        localStorage.removeItem(STORAGE_KEYS.AUTH_TOKEN);
+        localStorage.removeItem(STORAGE_KEYS.USER_DATA);
+      }
+    }
+    setLoading(false);
   }, []);
 
-  const login = (token) => {
-    localStorage.setItem('authToken', token); // Store token
+  const login = useCallback((token, userData) => {
+    localStorage.setItem(STORAGE_KEYS.AUTH_TOKEN, token);
+    localStorage.setItem(STORAGE_KEYS.USER_DATA, JSON.stringify(userData));
     setIsAuthenticated(true);
-    navigate('/'); // Redirect to home or desired route
-  };
+    setUser(userData);
+    setUserRole(userData.userType || null);
+    navigate(ROUTES.HOME);
+  }, [navigate]);
 
-  const logout = () => {
-    localStorage.removeItem('authToken'); // Clear token
+  const logout = useCallback(() => {
+    localStorage.removeItem(STORAGE_KEYS.AUTH_TOKEN);
+    localStorage.removeItem(STORAGE_KEYS.USER_DATA);
     setIsAuthenticated(false);
-    navigate('/'); 
+    setUser(null);
+    setUserRole(null);
+    navigate(ROUTES.HOME);
+  }, [navigate]);
+
+  const value = {
+    isAuthenticated,
+    user,
+    userRole,
+    loading,
+    login,
+    logout,
   };
 
   return (
-    <AuthContext.Provider value={{ isAuthenticated, login, logout }}>
+    <AuthContext.Provider value={value}>
       {children}
     </AuthContext.Provider>
   );
 }
 
-// Create a custom hook to use the auth context
+// Custom hook to use the auth context
 export function useAuth() {
-  return useContext(AuthContext);
+  const context = useContext(AuthContext);
+  if (!context) {
+    throw new Error('useAuth must be used within an AuthProvider');
+  }
+  return context;
 }

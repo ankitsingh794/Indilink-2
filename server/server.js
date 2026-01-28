@@ -1,8 +1,8 @@
 const express = require("express");
 const cors = require("cors");
 
-
 const userRoutes = require('./routes/user.routes');
+const sellerRoutes = require('./routes/seller.routes');
 const categoriesRoutes = require('./routes/categories');
 
 const app = express();
@@ -23,10 +23,10 @@ app.get("/", (req, res) => {
   res.send({ status: true, message: "Server is up" });
 });
 
-
-// app.use("/api/users", userRoutes); 
+// API Routes
+app.use("/api", userRoutes);
+app.use("/api", sellerRoutes);
 // app.use("/api/categories", categoriesRoutes); 
-app.use("/api", userRoutes); 
 
 const PORT = 5000;
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
